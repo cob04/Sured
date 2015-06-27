@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<!--<![endif]-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}The Fastest, Simplest and Easiest way to get insured | Sured{% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+    {% block extrahead %}{% endblock %}
+</head>
+<body>
+    {% block nav %}
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand page-scroll" href="{{ url_for('main.index') }}">
+                    <img src="img/logo.png" alt="Sured">
+                </a>
+
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li><a class="page-scroll" href="{{ url_for('main.index') }}">Home</a>
+                    </li>
+                    <li><a class="page-scroll" href="#">Services</a>
+                    </li>
+                    <li><a class="page-scroll" href="#">Partners</a>
+                    </li>
+                    <li><a class="page-scroll" href="#">About Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% endblock %}
+    {% block header %}
+    {% endblock %}
+    {% block content %}
+    <section id="services" class="section text-center">
+        <div class="container">
+            <h2 class="section-title wow fadeIn">Services</h2>
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-service text-center wow fadeInRight" data-wow-duration="1s" data-wow-delay="0s">
+                        <div class="service-content text-left">
+                            <i class="fa fa-desktop fa-3x"></i>
+                            <h3>Web Design</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet odit amet repellendus, eum ipsum laboriosam.</p>
+                            <a href="#">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-service text-left wow fadeInRight" data-wow-duration="1s" data-wow-delay=".3s">
+                        <div class="service-title">
+                            <i class="fa fa-mobile-phone fa-3x"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>Mobile Design</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet odit amet repellendus, eum ipsum laboriosam.</p>
+                            <a href="#">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-service text-left wow fadeInRight" data-wow-duration="1s" data-wow-delay=".6s">
+                        <div class="service-title">
+                            <i class="fa fa-code fa-3x"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>Code</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet odit amet repellendus, eum ipsum laboriosam.</p>
+                            <a href="#">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-service text-left wow fadeInRight" data-wow-duration="1s" data-wow-delay=".9s">
+                        <div class="service-title">
+                            <i class="fa fa-shopping-cart fa-3x"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>Ecommerce</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet odit amet repellendus, eum ipsum laboriosam.</p>
+                            <a href="#">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-service text-left wow fadeInRight" data-wow-duration="1s" data-wow-delay="1.2s">
+                        <div class="service-title">
+                            <i class="fa fa-cog fa-3x"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>CMS</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet odit amet repellendus, eum ipsum laboriosam.</p>
+                            <a href="#">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-service text-left wow fadeInRight" data-wow-duration="1s" data-wow-delay="1.5s">
+                        <div class="service-title">
+                            <i class="fa fa-rocket fa-3x"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>Web Application</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet odit amet repellendus, eum ipsum laboriosam.</p>
+                            <a href="#">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+    {% block footer %}
+    <footer>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="footer-menu">
+                        <ul class="list-inline">
+                            <li><a href="{{ url_for('main.index')}}">Home</a>
+                            </li>
+                            <li><a href="#">Services</a>
+                            </li>
+                            <li><a href="#">Partners</a>
+                            </li>
+                            <li><a href="#">About US</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="footer-content text-right">
+                        <p>&copy; 2015 Sured. All Rights Reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    {% endblock %}
+    <script src="{{ url_for('static', filename='js/vendor/jquery-1.10.2.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

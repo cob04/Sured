@@ -4,4 +4,4 @@ from . import main
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
-    return 'welcome to main'
+    return render_template('index.html')

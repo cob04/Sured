@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Sured - Register{% endblock %}
+
+{% block content %}
+<div class="section-a padded">
+	<div class="container">
+		<div class="page-header">
+			<h1>Register</h1>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					{{ wtf.quick_form(form, button_map={'submit': 'success'}) }}
+					<br/>
+					<p>Existing user? <a href="{{ url_for('auth.login') }}">Click here to log in</a>.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
