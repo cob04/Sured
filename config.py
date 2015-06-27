@@ -16,6 +16,8 @@ class Config:
     SURED_FOLLOWERS_PER_PAGE = 50
     SURED_COMMENTS_PER_PAGE = 30
     SURED_SLOW_DB_QUERY_TIME = 0.5
+    SURED_ADMIN = 'ericobain@gmail.com'
+    # TODO correct the SURED_ADMIN configuration
 
     @staticmethod
     def init_app(app):

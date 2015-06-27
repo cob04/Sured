@@ -5,7 +5,7 @@ from . import auth
 from .. import db
 from ..models import User
 from .forms import LoginForm, RegistrationForm
-'''
+
 @auth.before_app_request
 def before_request():
     if current_user.is_authenticated():
@@ -13,12 +13,12 @@ def before_request():
                     and request.endpoint[:5] != 'auth.' \
                     and request.endpoint != 'static':
                 return redirect(url_for('auth.unconfirmed'))
-'''
+
 @auth.route('/unconfirmed')
 def unconfirmed():
     if current_user.is_anonymous() or current_user.confirmed:
         return redirect(url_for('main.index'))
-    return redirect(url_for('.login'))
+    return render_template('index.html')
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
