@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
 {% block header %}
 <header id="home-area">
 	<div class="container">
@@ -27,66 +29,47 @@
 		</div>
 	</div>
 </header>
-<div class="content-section-b">
-
+{% endblock %}
+{% block content %}
+{% if 1 == 2 %}
+<div class="question-section">
     <div class="container">
     	<div class="row">
-    		<div class="col-md-6 col-offset-3 col-sm-8 col-sm-offset-2 col-xs-12">
-    			<ul class="nav nav-tabs" role="tablist">
-    				<li role="presentation" class="active"><a href="#All" aria-controls="home" role="tab" data-toggle="tab">All</a></li>
-    				<li role="presentation"><a href="#Featured" aria-controls="profile" role="tab" data-toggle="tab">Featured</a></li>
-    				<li role="presentation"><a href="#Hot" aria-controls="messages" role="tab" data-toggle="tab">Hot</a></li>
-    				<li role="presentation"><a href="#Week" aria-controls="settings" role="tab" data-toggle="tab">Week</a></li>
-    				<li role="presentation"><a href="#Month" aria-controls="settings" role="tab" data-toggle="tab">Month</a></li>	    
-    			</ul>
-    		</div>
-    		<div class="col-md-8 col-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
-    			<div class="tab-content">
-    				<div role="tabpanel" class="tab-pane active" id="All">...</div>
-    				<div role="tabpanel" class="tab-pane" id="Featured">...</div>
-    				<div role="tabpanel" class="tab-pane" id="Hot">...</div>
-    				<div role="tabpanel" class="tab-pane" id="Week">...</div>
-    				<div role="tabpanel" class="tab-pane" id="Month">...</div>
-    			</div>
-    		</div>
+    		<div class="col-md-6 col-md-offset-3">
+    			
+				{{ wtf.quick_form(form) }}
+			</div>
     	</div>
-
-        <div class="row">
-            <div class="col-lg-5 col-sm-6">
-                <hr class="section-heading-spacer">
-                <div class="clearfix"></div>
-                <h2 class="section-heading">Death to the Stock Photo:<br>Special Thanks</h2>
-                <p class="lead">A special thanks to <a target="_blank" href="http://join.deathtothestockphoto.com/">Death to the Stock Photo</a> for providing the photographs that you see in this template. Visit their website to become a member.</p>
-            </div>
-            <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                <img class="img-responsive" src="{{url_for('static', filename='img/ipad.png') }}" alt="">
-            </div>
-        </div>
-
     </div>
-    <!-- /.container -->
-
 </div>
-<!-- /.content-section-a -->
-
-<div class="content-section-a">
-
-    <div class="container">
-
-        <div class="row">
-            <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
-                <hr class="section-heading-spacer">
-                <div class="clearfix"></div>
-                <h2 class="section-heading">3D Device Mockups<br>by PSDCovers</h2>
-                <p class="lead">Turn your 2D designs into high quality, 3D product shots in seconds using free Photoshop actions by <a target="_blank" href="http://www.psdcovers.com/">PSDCovers</a>! Visit their website to download some of their awesome, free photoshop actions!</p>
-            </div>
-            <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                <img class="img-responsive" src="{{ url_for('static', filename='img/dog.png') }}" alt="">
-            </div>
-        </div>
-
-    </div>
+{% endif %}
+<div class="content-section-b">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-1">
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#All">All</a></li>
+						<li role="presentation"><a href="#Featured">Featured</a></li>
+						<li role="presentation"><a href="#Hot">Hot</a></li>
+						<li role="presentation"><a href="#Week">Week</a></li>
+						<li role="presentation"><a href="#Month">Month</a></li>
+						<li role="presentation"><a href="#Ask" class="btn btn-danger">Ask Your Question</a></li>	    
+					</ul>
+			</div>
+			<div class="col-md-8 col-md-offset-1">
+				<br><br>
+				{% include '_questions.html' %}
+				<div class="pagination">
+				{{ macros.pagination_widget(pagination, '.index') }}
+				</div>
+			</div>
+		</div>
+	</div>
     <!-- /.container -->
-
+</div>
+<div class="content-section-a">
+	<div class="container">
+	{{ wtf.quick_form(form) }}
+	</div>
 </div>
 {% endblock %}

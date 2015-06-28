@@ -110,17 +110,17 @@ a:hover {
     background: #24C0EF;
     background-size: cover;
     background-position: 0% 80%;
-    padding-top: 40px;
-    padding-bottom: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 }
 #home-area .container {
-    padding-top: 20px;
+    padding-top: 15px;
     padding-bottom: 15px;
 }
 .home-content {
     color: #fff;
-    padding-top: 100px;
+    padding-top: 80px;
     text-align: center;
 }
 .home-content h1 {
@@ -154,9 +154,13 @@ a:hover {
 }
 
 .content-section-b {
-    padding: 50px 0;
+    padding: 30px 0;
     border-top: 1px solid #e7e7e7;
     border-bottom: 1px solid #e7e7e7;
+}
+.question-section {
+    padding: 15px 0 10px 0;
+    background-color: #f8f8f8;
 }
 /* SERVICES
 ================================================ */
