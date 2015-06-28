@@ -141,25 +141,10 @@
     <footer>
         <div class="container">
             <div class="row">
-
-                <div class="col-md-6">
-                    <div class="footer-menu">
-                        <ul class="list-inline">
-                            <li><a href="{{ url_for('main.index')}}">Home</a>
-                            </li>
-                            <li><a href="#">Services</a>
-                            </li>
-                            <li><a href="#">Partners</a>
-                            </li>
-                            <li><a href="#">About US</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
+                <div class="col-md-6 col-md-offset-3">
                     <div class="footer-content text-right">
-                        <p>&copy; 2015 Sured. All Rights Reserved.</p>
+                        <p>&copy; Copyright 2015 Sured.</p>
+                        <p> All Rights Reserved.</p>
                     </div>
                 </div>
             </div>
@@ -169,6 +154,8 @@
     <script src="{{ url_for('static', filename='js/vendor/jquery-1.10.2.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-    {% block scripts %}{% endblock %}
+    {% block scripts %}
+    {{ moment.include_moment() }}
+    {% endblock %}
 </body>
 </html>

@@ -53,6 +53,11 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     confirmed = db.Column(db.Boolean, default=False)
+    name = db.Column(db.String(128))
+    location = db.Column(db.String(64))
+    bio = db.Column(db.Text())
+    created = db.Column(db.DateTime(), default=datetime.utcnow)
+    last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
@@ -94,8 +99,11 @@ class User(UserMixin, db.Model):
             (self.role.permissions & permissions) == permissions
 
     def is_administrator(self):
-        def can(self, permissions):
-            return self.can(Permissions.ADMINISTER)
+            return self.can(Permission.ADMINISTER)
+
+    def ping(self):
+        self.last_seen = datetime.utcnow()
+        db.session.add(self)
 
 class AnonymousUser(AnonymousUserMixin):
     def can(self, permissions):
@@ -103,6 +111,7 @@ class AnonymousUser(AnonymousUserMixin):
 
     def is_administrator(self):
         return False
+
 login_manager.anonymous_user = AnonymousUser
 
 @login_manager.user_loader

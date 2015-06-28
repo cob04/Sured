@@ -16,15 +16,13 @@
 
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-center">
                     <li><a href="{{ url_for('main.index') }}">Home</a>
                     </li>
-                    <li><a href="#">Services</a>
+                    <li><a href="{{ url_for('auth.register') }}">Sign Up</a>
                     </li>
-                    <li><a href="#">Partners</a>
-                    </li>
-                    <li><a href="#">About Us</a>
-                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_authenticated() %}
                     <li><a href="{{ url_for('auth.logout') }}">Log out</a>
                     </li>
