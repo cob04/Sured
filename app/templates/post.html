@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+{% block title %}Sured - post{% endblock %}
+{% block content %}
+<div class="content-section-b">
+	<div class="container top">
+		<div class="row top">
+			<div class="col-md-8 col-md-offset-2">
+				{% include '_posts.html' %}
+				<h4 id="comments">Comments</h4>
+
+				{% if current_user.can(Permission.COMMENT) %}
+				<div class="col-md-6">
+					{{ wtf.quick_form(form) }}
+				</div>
+				{% endif %}
+
+				{% include '_comments.html' %}
+				{% if pagination %}
+				<div class="pagination">
+					{{ macros.pagination_widget(pagination, '.post', fragment='#comments', id=posts[0].id) }}
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
