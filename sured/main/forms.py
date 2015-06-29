@@ -51,10 +51,10 @@ class EditProfileAdminForm(Form):
 
 
 class PostForm(Form):
-    body = PageDownField("What's your question?", validators=[Required()])
+    body = TextAreaField("Your question", validators=[Required()])
     submit = SubmitField('Submit')
 
 
 class CommentForm(Form):
-    body = StringField("What's your Answer or Comment?", validators=[Required()])
+    body = TextAreaField("Your Answer", validators=[Required()])
     submit = SubmitField('Submit')

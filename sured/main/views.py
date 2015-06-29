@@ -26,7 +26,11 @@ def index():
     return render_template('index.html', form=form, posts=posts,\
         pagination=pagination)
 
-@main.route('/user/<username>', methods=['GET', 'POST'])
+@main.route('/users/')
+def users():
+    return 'hello users'
+
+@main.route('/users/<username>', methods=['GET', 'POST'])
 def user(username):
     form = PostForm()
     user = User.query.filter_by(username=username).first()
@@ -85,7 +89,18 @@ def edit_profile_admin(id):
     form.bio.data = user.bio
     return render_template('edit_profile.html', form=form, user=user)
 
-@main.route('/post/<int:id>', methods=['GET', 'POST'])
+
+@main.route('/questions/')
+def posts():
+    page = request.args.get('page', 1, type=int)
+    pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
+        page, per_page=current_app.config['SURED_POSTS_PER_PAGE'],
+        error_out=False)
+    posts = pagination.items
+    return render_template('posts.html', posts=posts, pagination=pagination)
+
+    
+@main.route('/questions/<int:id>', methods=['GET', 'POST'])
 def post(id):
     post = Post.query.get_or_404(id)
     form = CommentForm()
@@ -122,3 +137,13 @@ def edit(id):
         return redirect(url_for('.post', id=post.id))
     form.body.data = post.body
     return render_template('edit_post.html', form=form)
+
+@main.route('/unanswered/')
+def unanswered():
+    page = request.args.get('page', 1, type=int)
+    pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
+        page, per_page=current_app.config['SURED_POSTS_PER_PAGE'],
+        error_out=False)
+    posts = pagination.items
+    return render_template('posts.html', posts=posts, pagination=pagination)
+

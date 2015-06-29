@@ -1,14 +1,9 @@
 <div class="col-md-8">
-<h2><i class="fa fa-comments"></i> Comments</h2>
 <hr/>
 {% for comment in comments %}
     <div class="row-fluid">
         <div class="row">
-            <div class="col-md-2">
-                <p>
-                    <a href="{{ url_for('.user', username=comment.author.username) }}">
-                    
-                </a>
+            <div class="col-md-2 pull-right">
                 </p><a href="{{ url_for('.user', username=comment.author.username) }}">{{ comment.author.username }}</a></p>
             </div>
             <div class="col-md-8">
@@ -34,11 +29,11 @@
                     <a class="btn btn-danger btn-xs" href="{{ url_for('.moderate_disable', id=comment.id, page=page) }}">Disable</a>
                     {% endif %}
                 {% endif %}
-                  <hr/>
                 </div>
             </div>
             <span class="small text-muted">{{ moment(comment.timestamp).fromNow() }}</span>
         </div>
     </div>
+    <hr/>
     {% endfor %}
 </div>

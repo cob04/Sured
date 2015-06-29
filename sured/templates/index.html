@@ -65,19 +65,19 @@
 		<div class="row">
 			<div class="col-md-8 col-md-offset-1">
 					<ul class="nav nav-tabs" role="tablist">
-						<li role="presentation" class="active"><a href="#All">All</a></li>
-						<li role="presentation"><a href="#Featured">Featured</a></li>
-						<li role="presentation"><a href="#Hot">Hot</a></li>
-						<li role="presentation"><a href="#Week">Week</a></li>
-						<li role="presentation"><a href="#Month">Month</a></li>
-						<li role="presentation"><a href="#Ask" class="btn btn-danger">Ask Your Question</a></li>	    
+						<li role="presentation" {% if request.args.type == 'all' %} class="active"{% endif %}><a href="{{ url_for('.index', type='all') }}">All</a></li>
+						<li role="presentation" {% if request.args.type == 'featured' %} class="active"{% endif %}><a href="{{ url_for('.index', type='featured') }}">Featured</a></li>
+						<li role="presentation" {% if request.args.type == 'hot' %} class="active"{% endif %}><a href="{{ url_for('.index', type='hot') }}">Hot</a></li>
+						<li role="presentation" {% if request.args.type == 'week' %} class="active"{% endif %}><a href="{{ url_for('.index', type='week') }}">Week</a></li>
+						<li role="presentation" {% if request.args.type == 'month' %} class="active"{% endif %}><a href="{{ url_for('.index', type='month') }}">Month</a></li>
+						<li role="presentation" {% if request.args.type == 'ask' %} class="active"{% endif %}><a href="{{ url_for('.index', type='ask') }}" class="btn btn-danger">Ask Your Question</a></li>	    
 					</ul>
 			</div>
 			<div class="col-md-8 col-md-offset-1">
 				<br><br>
 				{% include '_posts.html' %}
 				<div class="pagination">
-				{{ macros.pagination_widget(pagination, '.index') }}
+					<span>More? Click here for the <a href="{{ url_for('.posts') }}">complete list of questions</a>.</span>
 				</div>
 			</div>
 		</div>

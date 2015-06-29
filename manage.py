@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 import os
-from app import create_app, db
+from sured import create_app, db
 from flask.ext.script import Manager, Shell
 from flask.ext.migrate import Migrate, MigrateCommand
-from app.models import User, Role, Post, Permission, Comment
+from sured.models import User, Role, Post, Permission, Comment
 
 app = create_app(os.getenv('SURED_CONFIG') or 'default')
 manager = Manager(app)

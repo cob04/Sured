@@ -7,16 +7,18 @@
 	<div class="container top">
 		<div class="row top">
 			<div class="col-md-8 col-md-offset-2">
-				{% include '_posts.html' %}
-				<h4 id="comments">Comments</h4>
-
+				<div class="panel panel-default">
+					<div class="panel-body">
+						{% include '_posts.html' %}
+					</div>
+				</div>
+				<h4 id="Answers">Answers</h4>
+				{% include '_comments.html' %}
 				{% if current_user.can(Permission.COMMENT) %}
-				<div class="col-md-6">
+				<div class="col-md-8">
 					{{ wtf.quick_form(form) }}
 				</div>
 				{% endif %}
-
-				{% include '_comments.html' %}
 				{% if pagination %}
 				<div class="pagination">
 					{{ macros.pagination_widget(pagination, '.post', fragment='#comments', id=posts[0].id) }}

@@ -8,7 +8,7 @@ Dark Gray: #727272;
 
 body {
     font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
+    font-weight: 400;
     overflow-x: hidden;
 }
 h1, h2, h3, h4, h5, h6 {
@@ -273,4 +273,13 @@ div.pagination {
     margin-bottom: 20px;
     color: #FFFFFF;
     text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+}
+.labels a {
+    text-decoration: none;
+}
+.post-date {
+    margin-left: 10px;
+}
+.post-author {
+    margin-left: 20px;
 }

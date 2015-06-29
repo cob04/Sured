@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% import "_macros.html" as macros %}
+{% block title %}Questions on Sured{% endblock %}
+{% block content %}
+<div class="content-section-b">
+	<div class="container top">
+		<div class="row top">
+			<div class="col-md-8 col-md-offset-2">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						{% include '_posts.html' %}
+					</div>
+				</div>
+				<div class="pagination">
+				{{ macros.pagination_widget(pagination, '.posts') }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
