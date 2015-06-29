@@ -18,15 +18,15 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-center">
                     <li><a href="{{ url_for('main.index') }}">Home</a></li>
-                    <li><a href="{{ url_for('.posts') }}">Questions</a></li>
-                    <li><a href="{{ url_for('main.index') }}">Unanswered</a></li>
+                    <li><a href="{{ url_for('main.posts') }}">Questions</a></li>
+                    <li><a href="{{ url_for('main.unanswered') }}">Unanswered</a></li>
                     <li><a href="{{ url_for('main.index') }}">Help</a></li>
 
                    
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_authenticated() %}
-                    <li><a href="{{ url_for('.user', username=current_user.username) }}">Profile</a></li>
+                    <li><a href="{{ url_for('main.user', username=current_user.username) }}">Profile</a></li>
                     <li><a href="{{ url_for('auth.logout') }}">Log out</a></li>
                     {% else %}
                     <li><a href="{{ url_for('auth.register') }}">Sign Up</a></li>
