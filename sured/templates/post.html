@@ -3,27 +3,45 @@
 {% import "_macros.html" as macros %}
 {% block title %}Sured - post{% endblock %}
 {% block content %}
+<div class="header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+				<form class="inline-form" role="search">
+					<div class="form-group">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search">
+							<div class="input-group-btn" style="margin-top: -10px;"><button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button></div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="content-section-b">
-	<div class="container top">
-		<div class="row top">
+	<div class="container">
+		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						{% include '_posts.html' %}
 					</div>
 				</div>
-				<h4 id="Answers">Answers</h4>
-				{% include '_comments.html' %}
-				{% if current_user.can(Permission.COMMENT) %}
-				<div class="col-md-8">
-					{{ wtf.quick_form(form) }}
+				<div id="answers">
+					<h4>Answers</h4>
+					{% include '_comments.html' %}
+					{% if current_user.can(Permission.COMMENT) %}
+					<div class="col-md-8">
+						{{ wtf.quick_form(form) }}
+					</div>
+					{% endif %}
+					{% if pagination %}
+					<div class="pagination">
+						{{ macros.pagination_widget(pagination, '.post', fragment='#answers', id=posts[0].id) }}
+					</div>
+					{% endif %}
 				</div>
-				{% endif %}
-				{% if pagination %}
-				<div class="pagination">
-					{{ macros.pagination_widget(pagination, '.post', fragment='#comments', id=posts[0].id) }}
-				</div>
-				{% endif %}
 			</div>
 		</div>
 	</div>

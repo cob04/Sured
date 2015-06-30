@@ -1,5 +1,5 @@
 import unittest
-from app.models import User
+from sured.models import User
 
 class UserModelTestCase(unittest.TestCase):
     def test_password_setter(self):

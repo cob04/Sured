@@ -150,6 +150,9 @@ class Post(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     comments = db.relationship('Comment', backref='post', lazy='dynamic')
 
+    def answered(self):
+        return [comment for comment in self.comments if comment.answer]
+
     @staticmethod
     def generate_fake(count=100):
         from random import seed, randint
@@ -173,6 +176,7 @@ class Comment(db.Model):
     disabled = db.Column(db.Boolean)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
+    answer = db.Column(db.Boolean, default=False)
 
     @staticmethod
     def generate_fake(count=200):

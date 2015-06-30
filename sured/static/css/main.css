@@ -144,7 +144,13 @@ a:hover {
     background: #fff;
     color: #222;
 }
-.home-feature {}
+.header {
+    background: #24C0EF;
+    background-size: cover;
+    background-position: 0% 80%;
+    padding-top: 90px;
+    padding-bottom: 5px;
+}
 
 
 .content-section-a {
@@ -173,33 +179,6 @@ a:hover {
     text-align: center;
 }
 
-/* CONTACT US
- ================================================ */
-
-.contact-form .form-control {
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    padding: 20px 15px;
-}
-.send-button {
-    background: #24C0D9;
-    color: #fff;
-}
-.contact-form {
-    margin-top: 30px;
-    margin-bottom: 100px;
-}
-.contact-info {
-    margin-top: 30px;
-}
-.contact-info span {
-    color: #24C0D9;
-    margin-right: 10px;
-}
-.contact-info, .business-hours {
-    margin-bottom: 30px;
-    margin-left: 10px;
-}
 /* FOOTER
 ================================================ */
 
@@ -232,6 +211,7 @@ footer {
 }
 
 /* minors */
+
 .padded {
     padding-top: 80px;
 }
@@ -282,4 +262,8 @@ div.pagination {
 }
 .post-author {
     margin-left: 20px;
+}
+
+ul {
+    list-style-type: none;
 }

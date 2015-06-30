@@ -2,9 +2,25 @@
 {% import "_macros.html" as macros %}
 {% block title %}Questions on Sured{% endblock %}
 {% block content %}
+<div class="header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+				<form class="inline-form" role="search">
+					<div class="form-group">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search">
+							<div class="input-group-btn" style="margin-top: -10px;"><button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button></div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="content-section-b">
-	<div class="container top">
-		<div class="row top">
+	<div class="container">
+		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<div class="panel panel-default">
 					<div class="panel-body">
@@ -12,7 +28,7 @@
 					</div>
 				</div>
 				<div class="pagination">
-				{{ macros.pagination_widget(pagination, '.posts') }}
+				{{ macros.pagination_widget(pagination, request.endpoint) }}
 				</div>
 			</div>
 		</div>

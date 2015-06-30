@@ -23,5 +23,28 @@ def test():
     tests = unittest.TestLoader().discover('tests')
     unittest.TextTestRunner(verbosity=2).run(tests)
 
+@manager.command
+def deploy_dev():
+    ''' deploy in development(using faked data)'''
+    from flask.ext.migrate import init, migrate,  upgrade
+    from sured.models import Role, User, Post, Comment
+
+    #migrade database
+    init()
+    migrate()
+    upgrade()
+
+    # create roles
+    Role.insert_roles()
+
+    # fake users
+    User.generate_fake()
+
+    # fake questions
+    Post.generate_fake()
+
+    # fake answers
+    Comment.generate_fake()
+
 if __name__ == '__main__':
     manager.run()

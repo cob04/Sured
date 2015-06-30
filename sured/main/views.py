@@ -140,10 +140,17 @@ def edit(id):
 
 @main.route('/unanswered/')
 def unanswered():
+    def find_with_zero_comments(posts):
+        post_list = []
+        for post in posts:
+            if post.comments.count() == 0:
+                post_list.append(post)
+        return post_list
+    #posts = Post.query.order_by(Post.timestamp.desc())
     page = request.args.get('page', 1, type=int)
     pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
-        page, per_page=200,
+        page, per_page=current_app.config['SURED_COMMENTS_PER_PAGE'],
         error_out=False)
     posts = pagination.items
-    return render_template('unanswered.html', posts=posts, pagination=pagination)
+    return render_template('posts.html', posts=posts, pagination=pagination)
 

@@ -11,12 +11,12 @@
 					<h1>[Sured]</h1>
 				</div>
 			</div>
-			<div class="col-md-4 col-md-offset-2 col-sm-4 col-xs1-2">
-					<span class="intro">
-						<h3>[Sured] is an open question & answer site for professionals in insurance, banking, construction and other industries.</h3>
-					</span>
+			<div class="col-md-4 col-md-offset-2 col-sm-4 col-xs-12">
+				<span class="intro">
+					<h3>[Sured] is an open question & answer site for professionals in insurance, banking, construction and other industries.</h3>
+				</span>
 			</div>
-			<div class="col-md-4 col-sm-6 col-xs1-2">
+			<div class="col-md-4 col-sm-6 col-xs-12">
 				<div class="panel pane-default">
 					<div class="panel-body">
 						<h4>How it works</h4>
@@ -26,67 +26,68 @@
 					</div>
 				</div>
 			</div>
-				<div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
-					 <form class="inline-form" role="search">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <div class="input-group-btn" style="margin-top: -10px;"><button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button></div>
-                            </div>
-                        </div>
-                    </form>
-				</div>
+			<div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+				<form class="inline-form" role="search">
+					<div class="form-group">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search">
+							<div class="input-group-btn" style="margin-top: -10px;"><button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button></div>
+						</div>
+					</div>
+				</form>
 			</div>
-
-			<div class="col-md-6 col-sm-6 col-xs-12">
-				<div class="home-feature pull-right center-block wow bounceIn" data-wow-duration="1s" data-wow-delay="1s">
-				</div>
-			</div>
-
 		</div>
+
+		<div class="col-md-6 col-sm-6 col-xs-12">
+			<div class="home-feature pull-right center-block wow bounceIn" data-wow-duration="1s" data-wow-delay="1s">
+			</div>
+		</div>
+
 	</div>
+</div>
 </header>
 {% endblock %}
 {% block content %}
-{% if 1 == 2 %}
-<div class="post-section">
-    <div class="container">
-    	<div class="row">
-    		<div class="col-md-6 col-md-offset-3">
-    			
-				{{ wtf.quick_form(form) }}
-			</div>
-    	</div>
-    </div>
-</div>
-{% endif %}
 <div class="content-section-b">
 	<div class="container">
-		<div class="row">
-			<div class="col-md-8 col-md-offset-1">
-					<ul class="nav nav-tabs" role="tablist">
-						<li role="presentation" {% if request.args.type == 'all' %} class="active"{% endif %}><a href="{{ url_for('.index', type='all') }}">All</a></li>
-						<li role="presentation" {% if request.args.type == 'featured' %} class="active"{% endif %}><a href="{{ url_for('.index', type='featured') }}">Featured</a></li>
-						<li role="presentation" {% if request.args.type == 'hot' %} class="active"{% endif %}><a href="{{ url_for('.index', type='hot') }}">Hot</a></li>
-						<li role="presentation" {% if request.args.type == 'week' %} class="active"{% endif %}><a href="{{ url_for('.index', type='week') }}">Week</a></li>
-						<li role="presentation" {% if request.args.type == 'month' %} class="active"{% endif %}><a href="{{ url_for('.index', type='month') }}">Month</a></li>
-						<li role="presentation" {% if request.args.type == 'ask' %} class="active"{% endif %}><a href="{{ url_for('.index', type='ask') }}" class="btn btn-danger">Ask Your Question</a></li>	    
-					</ul>
+		<div class="col-md-8 col-md-offset-2">
+			<div class="row">
+				{% for message in get_flashed_messages() %}
+				<div class="alert alert-warning">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					{{ message }}
+				</div>
+				{% endfor %}
 			</div>
-			<div class="col-md-8 col-md-offset-1">
-				<br><br>
+		</div>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" {% if request.args.type == 'all' %} class="active"{% endif %}><a href="{{ url_for('main.index', type='all') }}">All</a></li>
+					<li role="presentation" {% if request.args.type == 'featured' %} class="active"{% endif %}><a href="{{ url_for('main.index', type='featured') }}">Featured</a></li>
+					<li role="presentation" {% if request.args.type == 'hot' %} class="active"{% endif %}><a href="{{ url_for('main.index', type='hot') }}">Hot</a></li>
+					<li role="presentation" {% if request.args.type == 'week' %} class="active"{% endif %}><a href="{{ url_for('main.index', type='week') }}">Week</a></li>
+					<li role="presentation" {% if request.args.type == 'month' %} class="active"{% endif %}><a href="{{ url_for('main.index', type='month') }}">Month</a></li>
+					<li role="presentation" {% if request.args.type == 'ask' %} class="active"{% endif %}><a href="{{ url_for('main.index', type='ask') }}" class="btn btn-danger">Ask Your Question</a></li>	    
+				</ul>
+			</div>
+			<div class="col-md-8 col-md-offset-2 top">
 				{% include '_posts.html' %}
 				<div class="pagination">
-					<span>More? Click here for the <a href="{{ url_for('.posts') }}">complete list of questions</a>.</span>
+					<span>More? Click here for the <a href="{{ url_for('main.posts') }}">complete list of questions</a>.</span>
 				</div>
 			</div>
 		</div>
 	</div>
-    <!-- /.container -->
+	<!-- /.container -->
 </div>
 <div class="content-section-a">
 	<div class="container">
-	{{ wtf.quick_form(form) }}
+		{% if request.endpoint == 'main.index' and current_user.is_authenticated() %}
+
+		{{ wtf.quick_form(form) }}
+
+		{% endif %}
 	</div>
 </div>
 {% endblock %}
