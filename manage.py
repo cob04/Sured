@@ -4,6 +4,7 @@ from sured import create_app, db
 from flask.ext.script import Manager, Shell
 from flask.ext.migrate import Migrate, MigrateCommand
 from sured.models import User, Role, Post, Permission, Comment
+from sured.logger.models import AccountCreation, PostCreation
 
 app = create_app(os.getenv('SURED_CONFIG') or 'default')
 manager = Manager(app)
@@ -11,7 +12,8 @@ migrate = Migrate(app, db)
 
 def make_shell_context():
     return dict(app=app, db=db, User=User, Role=Role, Post=Post,\
-                Permission=Permission, Comment=Comment)
+                Permission=Permission, Comment=Comment,\
+                AccountCreation=AccountCreation, PostCreation=PostCreation)
 
 manager.add_command("shell", Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)

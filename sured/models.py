@@ -5,6 +5,13 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask import current_app, request, url_for
 from flask.ext.login import UserMixin, AnonymousUserMixin
 from . import db, login_manager
+from blinker import Namespace
+
+
+model_signals = Namespace()
+model_saved = model_signals.signal('user-created')
+post_saved = model_signals.signal('post-created')
+comment_saved = model_signals.signal('comment-created')
 
 class Permission:
     FOLLOW = 0x01
@@ -177,6 +184,10 @@ class Comment(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
     answer = db.Column(db.Boolean, default=False)
+
+    def __init__(self, **kwargs):
+        super(Comment, self).__init__(**kwargs)
+        comment_saved.send(current_app, comment=self)
 
     @staticmethod
     def generate_fake(count=200):

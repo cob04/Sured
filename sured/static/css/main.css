@@ -267,3 +267,14 @@ div.pagination {
 ul {
     list-style-type: none;
 }
+.capitalize {
+    text-transform: capitalize;
+}
+
+.grey {
+    padding: 30px;
+    background-color: #e8e8f4;
+}
+.check {
+     color:#00cc00; 
+}

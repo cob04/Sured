@@ -2,12 +2,17 @@ from datetime import datetime
 from flask import render_template, session, redirect, url_for, flash, request, \
     current_app, make_response, abort
 from . import main
-from ..models import User, Role, Permission, Post, Comment
+from ..models import User, Role, Permission, Post, Comment, post_saved
 from .forms import EditProfileForm, EditProfileAdminForm, PostForm,\
      CommentForm
 from .. import db
 from ..decorators import admin_required, permission_required
 from flask.ext.login import login_required, current_user
+
+@main.before_app_request
+def before_request():
+    if request.endpoint  != 'static':
+        post_saved.send(current_app, request=request)
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -25,10 +30,6 @@ def index():
     posts = pagination.items
     return render_template('index.html', form=form, posts=posts,\
         pagination=pagination)
-
-@main.route('/users/')
-def users():
-    return 'hello users'
 
 @main.route('/users/<username>', methods=['GET', 'POST'])
 def user(username):
@@ -57,7 +58,7 @@ def edit_profile():
         current_user.location = form.location.data
         current_user.bio = form.bio.data
         db.session.add(current_user)
-        flash('Your Profile has been updated.')
+        flash('Your Profile has been updated.', 'success')
         return redirect(url_for('.user', username=current_user.username))
     form.name.data = current_user.name
     form.location.data = current_user.location
@@ -78,7 +79,7 @@ def edit_profile_admin(id):
         user.name = form.name.data
         user.bio = form.bio.data
         db.session.add(user)
-        flash('The profile has been updated.')
+        flash('The profile has been updated.', 'success')
         return redirect(url_for('.user', username=user.username))
     form.email.data = user.email
     form.username.data = user.username
@@ -109,7 +110,7 @@ def post(id):
                         post=post,
                         author=current_user._get_current_object())
         db.session.add(comment)
-        flash('Your answer had been published.')
+        flash('Your answer has been published.', 'success')
         return redirect(url_for('.post', id=post.id, page=-1))
     page = request.args.get('page', 1, type=int)
     if page == -1:
@@ -122,7 +123,7 @@ def post(id):
     return render_template('post.html', posts=[post], form=form,
                             comments=comments, pagination=pagination, Permission=Permission)
 
-@main.route('/edit/<int:id>', methods=['GET', 'POST'])
+@main.route('/questions/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit(id):
     post = Post.query.get_or_404(id)
@@ -133,10 +134,42 @@ def edit(id):
     if form.validate_on_submit():
         post.body = form.body.data
         db.session.add(post)
-        flash('Your post had been updated.')
+        flash('Your post has been updated.', 'success')
         return redirect(url_for('.post', id=post.id))
     form.body.data = post.body
     return render_template('edit_post.html', form=form)
+
+@main.route('/comments/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_comment(id):
+    comment = Comment.query.get_or_404(id)
+    if current_user != comment.author and \
+            not current_user.can(Permission.ADMINISTER):
+        abort(403)
+    form = CommentForm()
+    if form.validate_on_submit():
+        comment.body = form.body.data
+        db.session.add(comment)
+        flash('Your answer has been modified', 'success')
+        return redirect(url_for('.post', id=comment.post_id))
+    form.body.data = comment.body
+    return render_template('edit_comment.html', form=form)
+
+@main.route('/comments/select/<int:id>')
+@login_required
+def select_answer(id):
+    comment = Comment.query.get_or_404(id)
+    if current_user != comment.post.author and \
+            not current_user.can(Permission.ADMINISTER):
+        abort(403)
+    for c in comment.post.comments:
+        if c.answer:
+            c.answer = False
+            db.session.add(comment)
+    comment.answer = True
+    db.session.add(comment)
+    flash('Answer to question selected', 'success')
+    return redirect(url_for('.post', id=comment.post_id))
 
 @main.route('/unanswered/')
 def unanswered():
@@ -146,11 +179,13 @@ def unanswered():
             if post.comments.count() == 0:
                 post_list.append(post)
         return post_list
-    #posts = Post.query.order_by(Post.timestamp.desc())
     page = request.args.get('page', 1, type=int)
-    pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
+    pagination = Post.query.filter(Post.comments == None).order_by(Post.timestamp.desc()).paginate(
         page, per_page=current_app.config['SURED_COMMENTS_PER_PAGE'],
         error_out=False)
     posts = pagination.items
     return render_template('posts.html', posts=posts, pagination=pagination)
 
+@main.route('/help/')
+def help():
+    return render_template('help.html')

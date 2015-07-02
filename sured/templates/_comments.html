@@ -1,13 +1,9 @@
-<div class="col-md-8">
     <hr/>
-    {% for comment in comments %}
-    <div class="row-fluid">
-        <div class="row">
-            <div class="col-md-2 pull-right">
-            </p><a href="{{ url_for('.user', username=comment.author.username) }}">{{ comment.author.username }}</a></p>
-        </div>
-        <div class="col-md-8">
+    <ul class="comments">
+        {% for comment in comments %}
+        <li class="comment {% if comment.answer %}grey{% endif %}">
             <div class="row">
+                {% if comment.answer %}<span class="check"><i class="fa fa-3x fa-check"></i></span>{% endif %}
                 {% if comment.disabled %}
                 <p><i>This comment has been disabled by a moderator.</i></p>
                 {% endif %}
@@ -19,7 +15,25 @@
                 {% endif %}
                 {% endif %}
             </div>
-            <div class="row">
+            <br>
+            <div class="row labels">
+
+                {% if current_user == comment.author %}
+                <a href="{{ url_for('.edit_comment', id=comment.id) }}">
+                    <span class="label label-primary">Edit</span>
+                </a>
+                {% elif current_user.is_administrator() %}
+                <a href="{{ url_for('.edit_comment', id=comment.id) }}">
+                <span class="label label-danger">Edit [Admin]</span>
+                </a>
+                {% endif %}
+                {% if not comment.answer %}
+                {% if current_user == comment.post.author or current_user.is_administrator() %}
+                <a href="{{ url_for('.select_answer', id=comment.id) }}">
+                    <span class="label label-warning">Select as Answer</span>
+                </a>
+                {% endif %}
+                {% endif %}
                 {% if moderate %}
                 <br>
                 {% if comment.disabled %}
@@ -29,11 +43,10 @@
                 {% endif %}
                 {% endif %}
                 <span class="small text-muted pull-right">{{ moment(comment.timestamp).fromNow() }}</span>
-                {% if comment.answer %}<span class="label label-success">Answer</span>{% endif %}
+                <span class="pull-right"><a href="{{ url_for('.user', username=comment.author.username) }}">{{ comment.author.username }}</a></span>
+
             </div>
-        </div>
-    </div>
-</div>
-<hr/>
-{% endfor %}
-</div>
+        </li>
+        <hr/>
+        {% endfor %}
+    </ul>

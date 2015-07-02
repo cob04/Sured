@@ -3,19 +3,38 @@
 
 {% block title %}Sured - Edit post{% endblock %}
 {% block content %}
+<div class="header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+				<form class="inline-form" role="search">
+					<div class="form-group">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search">
+							<div class="input-group-btn" style="margin-top: -10px;"><button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button></div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="content-section-b">
 	<div class="container">
 		<div class="row">
-			<div class="well">
-				blah
-			</div>
-			<div class="page-header">
-				<h1>Edit post</h1>
-			</div>
-			<div>
-				{{ wtf.quick_form(form) }}
+			<div class="col-md-8 col-md-offset-2">
+				<div class="page-header">
+					<h1>Edit post</h1>
+				</div>
+				<div>
+					{{ wtf.quick_form(form) }}
+				</div>
 			</div>
 		</div>
+	</div>
+</div>
+<div class="content-section-a">
+	<div class="container">
 	</div>
 </div>
 {% endblock %}
