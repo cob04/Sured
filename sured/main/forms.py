@@ -51,7 +51,8 @@ class EditProfileAdminForm(Form):
 
 
 class PostForm(Form):
-    body = TextAreaField("Your question", validators=[Required()])
+    title = StringField('Question Title', validators=[Required(), Length(1, 255)])
+    body = TextAreaField("Question", validators=[Required()])
     submit = SubmitField('Submit')
 
 
