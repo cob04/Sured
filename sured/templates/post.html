@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% import "bootstrap/wtf.html" as wtf %}
 {% import "_macros.html" as macros %}
-{% block title %}Sured - post{% endblock %}
+{% block title %}{% for post in posts %}{{ post.body | truncate(50) }}{% endfor %} | Sured {% endblock %}
 {% block content %}
 <div class="header">
 	<div class="container">

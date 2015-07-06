@@ -49,6 +49,52 @@ def user(username):
     return render_template('user.html', user=user, posts=posts,\
                             form=form)
 
+@main.route('/follow/<username>')
+@login_required
+@permission_required(Permission.FOLLOW)
+def follow(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash('Invalid User.', 'danger')
+        return redirect(url_for('.index'))
+    if current_user.is_following(user):
+        flash('You are already following this user.', 'warning')
+        return redirect(url_for('.user', username=username))
+    current_user.follow(user)
+    flash('You are now following %s.' % username, 'success')
+    return redirect(url_for('.user', username=username))
+
+@main.route('/unfollow/<username>')
+@login_required
+@permission_required(Permission.FOLLOW)
+def unfollow(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash('Invalid User.', 'danger')
+        return redirect(url_for('.index'))
+    if not current_user.is_following(user):
+        flash('You are not following this user.', 'warning')
+        return redirect(url_for('.user', username=username))
+    current_user.unfollow(user)
+    flash('You are no longer following %s.' % username, 'warning')
+    return redirect(url_for('.user', username=username))
+
+@main.route('/followers/<username>')
+def followers(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash('Invalid user.', 'danger')
+        return redirect(url_for('.index'))
+    page = request.args.get('page', 1, type=int)
+    pagination=user.followers.paginate(
+        page, per_page=current_app.config['SURED_FOLLOWERS_PER_PAGE'],
+        error_out=False)
+    follows = [{'user': item.follower, 'timestamp':item.timestamp}
+                for item in pagination.items]
+    return render_template('followers.html', user=user, title='Followers of',
+                            endpoint='.followers', pagination=pagination,
+                            follows=follows)
+
 @main.route('/edit-profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
@@ -121,7 +167,7 @@ def post(id):
         error_out=False)
     comments = pagination.items
     return render_template('post.html', posts=[post], form=form,
-                            comments=comments, pagination=pagination, Permission=Permission)
+                            comments=comments, pagination=pagination)
 
 @main.route('/questions/edit/<int:id>', methods=['GET', 'POST'])
 @login_required
