@@ -221,12 +221,6 @@ def select_answer(id):
 
 @main.route('/unanswered/')
 def unanswered():
-    def find_with_zero_comments(posts):
-        post_list = []
-        for post in posts:
-            if post.comments.count() == 0:
-                post_list.append(post)
-        return post_list
     page = request.args.get('page', 1, type=int)
     pagination = Post.query.filter(Post.comments == None).order_by(Post.timestamp.desc()).paginate(
         page, per_page=current_app.config['SURED_COMMENTS_PER_PAGE'],
