@@ -224,14 +224,14 @@ div.pagination {
 /*******************************/
 /*          Buttons            */
 /*******************************/
-.btn-action,
-.btn-primary { 
+.btn-action { 
     color:#FFEFD7; 
     background-image: -webkit-linear-gradient(top, #FF9B22 0%, #FF8C00 100%); 
     background-image: linear-gradient(to bottom, #FF9B22 0%, #FF8C00 100%); 
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffFF9B22', endColorstr='#ffFF8C00', GradientType=0); 
     filter: progid:DXImageTransform.Microsoft.gradient(enabled = false); 
-    background-repeat: repeat-x; border:0 none; 
+    background-repeat: repeat-x; border:0 none;
+    font-weight: 400;
 }
 .btn-action:hover,
 .btn-action:focus { 
@@ -273,6 +273,7 @@ div.pagination {
 
 ul {
     list-style-type: none;
+    padding-left: 10px;
 }
 .capitalize {
     text-transform: capitalize;
@@ -284,4 +285,10 @@ ul {
 }
 .check {
      color:#00cc00; 
+}
+.tip {
+    padding-top: 10px;
+}
+.btn .btn-sm {
+    padding-top: 5px;
 }

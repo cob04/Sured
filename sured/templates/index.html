@@ -19,7 +19,7 @@
 			<div class="col-md-4 col-sm-6 col-xs-12">
 				<div class="panel pane-default">
 					<div class="panel-body">
-						<h4>How it works</h4>
+						<h4>How it works:</h4>
 						<p>Anybody can ask a question.</p>
 						<p>Anybody can answer.</p>
 						<p>Best answers get voted to the top.</p>
@@ -31,7 +31,7 @@
 					<div class="form-group">
 						<div class="input-group">
 							<input type="text" class="form-control" placeholder="Search">
-							<div class="input-group-btn" style="margin-top: -10px;"><button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button></div>
+							<div class="input-group-btn" style="margin-top: -10px;"><button type="submit" class="btn btn-action"><i class="fa fa-search"></i></button></div>
 						</div>
 					</div>
 				</form>
@@ -70,7 +70,7 @@
 					<li role="presentation" {% if request.args.type == 'hot' %} class="active"{% endif %}><a href="{{ url_for('main.index', type='hot') }}">Hot</a></li>
 					<li role="presentation" {% if request.args.type == 'week' %} class="active"{% endif %}><a href="{{ url_for('main.index', type='week') }}">Week</a></li>
 					<li role="presentation" {% if request.args.type == 'month' %} class="active"{% endif %}><a href="{{ url_for('main.index', type='month') }}">Month</a></li>
-					<li role="presentation" {% if request.args.type == 'ask' %} class="active"{% endif %}><a href="{{ url_for('main.index', type='ask') }}" class="btn btn-danger">Ask Your Question</a></li>	    
+					<li role="presentation" {% if request.args.type == 'ask' %} class="active"{% endif %}><a href="{{ url_for('main.user', username=current_user.username) }}" class="btn btn-danger"><span class="badge"><i class="fa fa-question"></i></span> Ask Your Question</a></li>	    
 				</ul>
 			</div>
 			<div class="col-md-8 col-md-offset-2 top">
