@@ -179,7 +179,7 @@ def edit(id):
         abort(403)
     form = PostForm()
     if form.validate_on_submit():
-        post.title = form.body.data
+        post.title = form.title.data
         post.body = form.body.data
         db.session.add(post)
         flash('Your post has been updated.', 'success')
