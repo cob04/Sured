@@ -28,6 +28,9 @@
 						{{ post.comments.count() }} Answers
 					</span>
 				</a>
+				{% for tag in post.tags %}
+				<a href="#"><span class="label label-warning">{{ tag.name }}</span></a>
+				{% endfor %}
 			</div>
 		</div>
 	</li>

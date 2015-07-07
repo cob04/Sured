@@ -257,6 +257,13 @@ div.pagination {
 .labels a {
     text-decoration: none;
 }
+.labels .label {
+    margin-left: 5px;
+    margin-top: 5px;
+}
+.label-warning {
+    background-color: #FF9B22;
+}
 .post-date {
     margin-left: 10px;
 }

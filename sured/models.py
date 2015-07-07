@@ -181,6 +181,27 @@ login_manager.anonymous_user = AnonymousUser
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+class Tag(db.Model):
+    __tablename__ = 'tags'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), index=True)
+
+    @staticmethod
+    def generate_fake(count=100):
+        from random import randint, seed
+        import forgery_py
+
+        seed()
+        for i in range(count):
+            t = Tag(name=forgery_py.lorem_ipsum.word())
+            db.session.add(t)
+        db.session.commit()
+
+tagged = db.Table('tagged',
+    db.Column('tag_id', db.Integer, db.ForeignKey('tags.id')),
+    db.Column('post_id', db.Integer, db.ForeignKey('posts.id')),
+)
+
 class Post(db.Model):
     __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True)
@@ -189,9 +210,20 @@ class Post(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     comments = db.relationship('Comment', backref='post', lazy='dynamic')
+    tags = db.relationship('Tag', secondary=tagged,
+                            backref=db.backref('posts', lazy='dynamic'),
+                            lazy='dynamic')
 
     def answered(self):
         return [comment for comment in self.comments if comment.answer]
+
+    def tag(self, tag):
+        self.tags.append(tag)
+        db.session.add(self)
+
+    def untag(self, tag):
+        self.tags.remove(tag)
+        db.session.add(self)
 
     @staticmethod
     def generate_fake(count=100):
@@ -200,12 +232,16 @@ class Post(db.Model):
 
         seed()
         user_count = User.query.count()
+        tag_count = Tag.query.count()
         for i in range(count):
             u = User.query.offset(randint(0, user_count -1)).first()
             p = Post(title=forgery_py.lorem_ipsum.sentences(1),
                      body=forgery_py.lorem_ipsum.sentences(randint(2, 5)),
                      timestamp=forgery_py.date.date(True),
                      author=u)
+            for i in range(randint(0, 4)):
+                t = Tag.query.offset(randint(0, user_count -1)).first()
+                p.tag(t)
             db.session.add(p)
             db.session.commit()
 
