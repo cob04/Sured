@@ -46,7 +46,6 @@ def user(username):
                         author=current_user._get_current_object())
             db.session.add(post)
             return redirect(url_for('.user', username=user.username))
-
     posts = user.posts.order_by(Post.timestamp.desc()).all()
     return render_template('user.html', user=user, posts=posts,\
                             form=form)
@@ -180,10 +179,12 @@ def edit(id):
         abort(403)
     form = PostForm()
     if form.validate_on_submit():
+        post.title = form.body.data
         post.body = form.body.data
         db.session.add(post)
         flash('Your post has been updated.', 'success')
         return redirect(url_for('.post', id=post.id))
+    form.title.data = post.title
     form.body.data = post.body
     return render_template('edit_post.html', form=form)
 
